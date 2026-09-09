@@ -2551,6 +2551,11 @@ body, .navbar, .top-ticker, .footwear-card, .anatomy-visual-card,
 }
 
 /* ---------- RESPONSIVE MEDIA QUERIES ---------- */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -2581,45 +2586,89 @@ body, .navbar, .top-ticker, .footwear-card, .anatomy-visual-card,
   .footer-top-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .reels-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 70px 0;
+    padding: 60px 0;
+  }
+  .top-ticker .ticker-content {
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 0;
+    text-align: center;
+  }
+  .ticker-links {
+    font-size: 11px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
   }
   .nav-menu {
     position: fixed;
-    top: 80px;
+    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
     background: #090A0E;
     flex-direction: column;
-    padding: 40px 24px;
-    gap: 24px;
+    padding: 30px 24px;
+    gap: 20px;
     align-items: flex-start;
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 99;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 70px);
   }
   .nav-menu.open {
     transform: translateX(0);
   }
   .nav-item {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
   .nav-toggle {
     display: flex;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3.4rem);
+  }
+  .hero-tagline {
+    font-size: 15px;
+  }
+  .hero-stage-box {
+    max-width: 100%;
+  }
+  .hero-sneaker-canvas,
+  #heroSneakerImg {
+    max-width: 100%;
+    height: auto;
+  }
+  .reels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
   .reel-modal-layout {
     grid-template-columns: 1fr;
   }
   .reel-iframe-box {
-    min-height: 420px;
+    height: 400px;
+    min-height: unset;
+  }
+  .reel-details-box {
+    padding: 24px 20px;
   }
   .footer-top-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
   .footer-bottom-bar {
     flex-direction: column;
@@ -2628,7 +2677,151 @@ body, .navbar, .top-ticker, .footwear-card, .anatomy-visual-card,
   }
   .stage-tech-badge {
     position: static;
-    margin-bottom: 12px;
+    margin: 12px auto;
+  }
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 18px;
+  }
+  .bag-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+  .hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 14px;
+    width: 100%;
+  }
+  .stat-block {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+  .stat-lbl {
+    font-size: 10px;
+  }
+  .hero-colorway-panel {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+  }
+  .fit-finder-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 48px 0;
+  }
+  .nav-container {
+    padding: 0 12px;
+    height: 64px;
+  }
+  .nav-menu {
+    top: 64px;
+    max-height: calc(100vh - 64px);
+  }
+  .logo-brand {
+    font-size: 15px;
+  }
+  .logo-sub {
+    font-size: 9px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .reels-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .reel-thumb-card {
+    border-radius: var(--radius-lg);
+  }
+  .filter-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .size-chips-grid {
+    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    gap: 6px;
+  }
+  .size-chip {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  .floating-quick-bar {
+    bottom: 16px;
+    right: 16px;
+    gap: 8px;
+  }
+  .float-action-btn {
+    width: 46px;
+    height: 46px;
+  }
+  .float-action-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+  .bag-drawer-header {
+    padding: 16px;
+  }
+  .bag-drawer-items {
+    padding: 16px;
+    gap: 12px;
+  }
+  .bag-drawer-footer {
+    padding: 16px;
+  }
+  .contact-card-modern {
+    padding: 18px;
+  }
+  .store-info-panel {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo-sub {
+    display: none;
+  }
+  .logo-icon-wrap {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  .hero-stats-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  .top-ticker {
+    font-size: 11px;
   }
 }
 

@@ -811,19 +811,29 @@ button {
 }
 
 .badge-doctor {
-  bottom: -24px;
-  left: -16px;
+  bottom: -20px;
+  left: -12px;
   display: flex;
   align-items: center;
   gap: 12px;
   max-width: 270px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 992px) {
+  .badge-doctor {
+    left: 12px;
+    bottom: -16px;
+    padding: 10px 14px;
+    max-width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 480px) {
   .badge-doctor {
     left: 8px;
-    bottom: -16px;
+    bottom: 8px;
     padding: 8px 12px;
+    max-width: calc(100% - 16px);
   }
 }
 
@@ -865,15 +875,25 @@ button {
 
 .badge-icu-status {
   top: 16px;
-  right: -20px;
+  right: -16px;
   min-width: 190px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 992px) {
+  .badge-icu-status {
+    right: 12px;
+    top: 12px;
+    padding: 10px 14px;
+    max-width: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 480px) {
   .badge-icu-status {
     right: 8px;
-    top: 12px;
+    top: 8px;
     padding: 8px 12px;
+    max-width: calc(100% - 16px);
   }
 }
 
@@ -2321,6 +2341,212 @@ button {
 .mobile-bar-btn.btn-wa {
   background-color: var(--color-whatsapp);
   color: #ffffff;
+}
+
+/* ==========================================================================
+   GLOBAL RESPONSIVE MEDIA QUERIES (ALL BREAKPOINTS)
+   ========================================================================== */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 1024px) {
+  body {
+    padding-bottom: 72px; /* Prevent sticky emergency bar from obscuring footer content */
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-content {
+    align-items: center;
+    text-align: center;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-trust-bar {
+    justify-content: center;
+  }
+  .hero-main-photo {
+    height: clamp(300px, 50vw, 440px);
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about-details .section-title {
+    text-align: center;
+  }
+  .doctor-experience-tag {
+    position: static;
+    margin-top: 14px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  .emergency-announcement-bar {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+  .top-bar-content {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .top-bar-meta {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.75rem;
+  }
+  .navbar-main {
+    height: 68px;
+    padding: 0 16px;
+  }
+  .brand-title {
+    font-size: clamp(14px, 4vw, 17px);
+  }
+  .brand-subtitle {
+    font-size: 10px;
+  }
+  .services-grid,
+  .departments-grid,
+  .facility-grid,
+  .gallery-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .services-card,
+  .department-card {
+    padding: 22px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  .mobile-drawer {
+    width: min(88vw, 320px);
+  }
+  .drawer-body {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 48px 0;
+  }
+  .section-title {
+    font-size: clamp(1.45rem, 6vw, 2rem);
+  }
+  .section-desc {
+    font-size: 0.92rem;
+  }
+  .hero-title {
+    font-size: clamp(1.85rem, 7.5vw, 2.5rem);
+    line-height: 1.18;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+  .hero-trust-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .trust-strong {
+    font-size: 0.95rem;
+  }
+  .trust-caption {
+    font-size: 0.72rem;
+  }
+  .gallery-img, .tour-img {
+    height: 220px;
+  }
+
+  /* Appointment Booking Modal */
+  .modal-card {
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+  }
+  .modal-header {
+    padding: 16px 20px;
+  }
+  .modal-form {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  /* Sticky Mobile Bar */
+  .mobile-emergency-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .mobile-bar-btn {
+    padding: 10px 10px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 12px;
+  }
+  .brand-subtitle {
+    display: none;
+  }
+  .nav-doctor-badge {
+    display: none;
+  }
+  .brand-logo-badge {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+  .hero-trust-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .hero-title {
+    font-size: 1.65rem;
+  }
+  .hero-main-photo {
+    height: 280px;
+  }
 }
 
 /* ==========================================================================

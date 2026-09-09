@@ -1451,44 +1451,279 @@ a {
   margin-top: 10px;
 }
 
-/* Responsive Reels */
+/* ============================================
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
+   ============================================ */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 @media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
   .reels-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .product-card-large {
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .section-title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+  .section-desc {
+    font-size: 14px;
+  }
+
+  /* Navbar Mobile Menu */
+  .nav-container {
+    height: 70px;
+    padding: 0 16px;
+  }
+  .nav-links.open {
+    padding: 80px 20px 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 100vh;
+  }
+  .nav-links.open .nav-link {
+    font-size: 17px;
+    padding: 12px 0;
+  }
+  .nav-mobile-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nav-mobile-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hero Section */
+  .hero {
+    min-height: auto;
+    padding: 110px 0 60px;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3.4rem);
+    line-height: 1.15;
+  }
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 36px;
+    padding-top: 24px;
+  }
+  .stat-value {
+    font-size: clamp(20px, 4vw, 26px);
+  }
+  .stat-label {
+    font-size: 11px;
+  }
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* About & Cards */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about-float-card {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 14px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 18px 24px;
+  }
+
+  /* Featured Reel Spotlight */
   .featured-reel-card {
     grid-template-columns: 1fr;
     gap: 20px;
-    padding: 16px;
+    padding: 18px;
+    border-radius: 16px;
   }
   .featured-reel-player {
     height: 420px;
+    border-radius: 12px;
   }
   .reels-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
+
+  /* Modal */
   .reel-modal-body {
     grid-template-columns: 1fr;
     padding: 16px;
   }
   .reel-modal-frame-container {
-    height: 420px;
+    height: 400px;
+  }
+  .reel-modal-info {
+    padding: 16px 0;
+  }
+  .reel-modal-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Floating CTA */
+  .floating-cta {
+    bottom: 16px;
+    right: 16px;
+    gap: 10px;
+  }
+  .float-btn {
+    width: 48px;
+    height: 48px;
+  }
+  .float-btn svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 44px 0;
+  }
+  .nav-container {
+    padding: 0 12px;
+  }
+  .logo-name {
+    font-size: 14px;
+  }
+  .logo-sub {
+    font-size: 9px;
+  }
+
+  /* Products & Grids */
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .product-card-large {
+    grid-column: 1;
+    aspect-ratio: 4/3;
+  }
+  .product-overlay {
+    padding: 16px;
+  }
+  .product-info h3 {
+    font-size: 19px;
+  }
+
+  /* Features & Reviews */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .review-card {
+    padding: 18px;
+  }
+
+  /* Reels */
   .reels-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .reel-thumb-box {
     aspect-ratio: 16 / 10;
   }
   .featured-reel-player {
-    height: 380px;
+    height: 360px;
+  }
+  .reel-modal-frame-container {
+    height: 340px;
+  }
+
+  /* FAQ */
+  .faq-question {
+    padding: 16px;
+    font-size: 14px;
+  }
+  .faq-answer {
+    padding: 0 16px;
+  }
+  .faq-answer p {
+    font-size: 13px;
+    padding-bottom: 16px;
+  }
+
+  /* Footer */
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 12px;
+  }
+  .logo-name {
+    font-size: 13px;
+  }
+  .logo-sub {
+    display: none;
+  }
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+  .featured-reel-player {
+    height: 300px;
+  }
+  .reel-modal-frame-container {
+    height: 300px;
   }
 }
 
