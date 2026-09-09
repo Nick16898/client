@@ -62,6 +62,16 @@ const PROJECTS_DATA = [
     desc: 'Super-specialty critical care & intensive care hospital in Junagadh, led by Dr. Pinank Mer (M.D. Physician). Features live ECG simulation waveform and appointment booking.',
     tags: ['Healthcare', 'ICU Speciality', 'Live ECG Simulation', 'WhatsApp Consult'],
     url: '/krishiv-hospital/'
+  },
+  {
+    id: 'modern_furniture_world',
+    title: 'Modern Furniture World (Junagadh)',
+    icon: '🛋️',
+    badgeClass: 'mfw-badge',
+    btnClass: 'btn-mfw',
+    desc: 'Junagadh’s iconic 7-floor furniture paradise since 1995. Features high-density foam sofas, smart motorized recliners, official Sleepwell gallery, and interactive room visualizer.',
+    tags: ['7 Floors of Luxury', 'Livora Editorial Style', 'Sleepwell Gallery', 'Interactive Visualizer'],
+    url: '/modern_furniture_world/'
   }
 ];
 
@@ -84,6 +94,16 @@ const server = http.createServer((req, res) => {
 
   // Normalize path using POSIX forward slashes for clean matching
   let normalizedPath = reqPath.replace(/\\/g, '/');
+
+  // CORS Support (Allows VS Code Live Server on port 5500 to call the API)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    return res.end();
+  }
 
   // 1. API: Passcode Verification Endpoint (reads password from .env / process.env)
   if (normalizedPath === '/api/verify-passcode' && req.method === 'POST') {
@@ -137,6 +157,14 @@ const server = http.createServer((req, res) => {
     res.writeHead(301, { Location: '/krishiv-hospital/' });
     return res.end();
   }
+  if (normalizedPath === '/modern_furniture_world' || normalizedPath === '/modern-furniture-world') {
+    res.writeHead(301, { Location: '/modern_furniture_world/' });
+    return res.end();
+  }
+  if (normalizedPath === '/modern-furniture-world/') {
+    res.writeHead(301, { Location: '/modern_furniture_world/' });
+    return res.end();
+  }
   // Legacy aliases for /kanaiya-footwear
   if (normalizedPath === '/kanaiya-footwear' || normalizedPath === '/kanaiya-footwear/') {
     res.writeHead(301, { Location: '/kanaiya-footwear-letest/' });
@@ -152,15 +180,24 @@ const server = http.createServer((req, res) => {
     filePath = path.join(filePath, 'index.html');
   }
 
+  // Route project-prefixed asset requests to root assets directory
+  if (normalizedPath.startsWith('/modern_furniture_world/assets/') || normalizedPath.startsWith('/modern-furniture-world/assets/')) {
+    const subPath = normalizedPath.replace(/^\/(?:modern_furniture_world|modern-furniture-world)\/assets\//, '');
+    const candidate = path.join(__dirname, 'assets', 'modern_furniture_world', subPath);
+    if (fs.existsSync(candidate)) filePath = candidate;
+  }
+
   // Fallback: If asset requested directly from /assets/ without project prefix
   if (!fs.existsSync(filePath) && normalizedPath.startsWith('/assets/')) {
     const filename = path.basename(normalizedPath);
     const candidate1 = path.join(__dirname, 'assets', 'kanaiya-footwear-letest', filename);
     const candidate2 = path.join(__dirname, 'assets', 'kanaiya-website', filename);
     const candidate3 = path.join(__dirname, 'assets', 'krishiv-hospital', filename);
+    const candidate4 = path.join(__dirname, 'assets', 'modern_furniture_world', filename);
     if (fs.existsSync(candidate1)) filePath = candidate1;
     else if (fs.existsSync(candidate2)) filePath = candidate2;
     else if (fs.existsSync(candidate3)) filePath = candidate3;
+    else if (fs.existsSync(candidate4)) filePath = candidate4;
   }
 
   // Fallback for legacy /photos/... requests
