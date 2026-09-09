@@ -1,0 +1,16 @@
+{
+  "name": "work-projects-hub",
+  "version": "1.0.0",
+  "description": "Multi-project hub for Kanaiya Footwear and Krishiv Hospital",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "kanaiya-footwear",
+    "krishiv-hospital"
+  ],
+  "author": "Nikhil",
+  "license": "ISC"
+}
