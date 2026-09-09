@@ -75,6 +75,225 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // ==========================================================================
+  // 1b. FURNICO-STYLE INTERACTIVE HERO: SCENES & HOTSPOTS
+  // ==========================================================================
+  const FURNICO_SCENES = {
+    living: {
+      name: 'Living Room',
+      image: '../assets/modern_furniture_world/furnico_hero_living.jpg',
+      hotspots: [
+        {
+          top: '68%',
+          left: '52%',
+          title: 'Modern Bouclé Chair',
+          price: '₹24,990',
+          img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Modern Bouclé Chair (₹24,990) featured in your interactive room.'
+        },
+        {
+          top: '86%',
+          left: '68%',
+          title: 'Teak Coffee Table',
+          price: '₹12,490',
+          img: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Teak Coffee Table (₹12,490) featured in your interactive room.'
+        },
+        {
+          top: '48%',
+          left: '85%',
+          title: 'Arched Bookcase',
+          price: '₹38,500',
+          img: 'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Arched Bookcase (₹38,500) featured in your interactive room.'
+        }
+      ]
+    },
+    bedroom: {
+      name: 'Master Bedroom',
+      image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=2000&q=85',
+      hotspots: [
+        {
+          top: '54%',
+          left: '50%',
+          title: 'King Hydraulic Bed',
+          price: '₹49,990',
+          img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the King Hydraulic Bed (₹49,990) featured in your bedroom showcase.'
+        },
+        {
+          top: '64%',
+          left: '74%',
+          title: 'Sleepwell Ortho Mattress',
+          price: '₹18,500',
+          img: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I want to inquire about the Sleepwell Ortho Mattress (₹18,500).'
+        },
+        {
+          top: '44%',
+          left: '24%',
+          title: 'Fluted Bedside Table',
+          price: '₹8,990',
+          img: 'https://images.unsplash.com/photo-1532372320572-cda25653a26d?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Fluted Bedside Table (₹8,990).'
+        }
+      ]
+    },
+    dining: {
+      name: 'Royal Dining',
+      image: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=2000&q=85',
+      hotspots: [
+        {
+          top: '56%',
+          left: '52%',
+          title: 'Marble Dining Table',
+          price: '₹58,000',
+          img: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Italian Marble Dining Table (₹58,000).'
+        },
+        {
+          top: '62%',
+          left: '30%',
+          title: 'Velvet Dining Chair',
+          price: '₹6,500',
+          img: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I want to inquire about the Velvet Dining Chair (₹6,500).'
+        },
+        {
+          top: '36%',
+          left: '78%',
+          title: 'Glass Crockery Cabinet',
+          price: '₹34,900',
+          img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=240&q=80',
+          waText: 'Hello Modern Furniture World, I am interested in the Glass Crockery Cabinet (₹34,900).'
+        }
+      ]
+    }
+  };
+
+  const furnicoStage = document.getElementById('furnicoStage');
+  const furnicoBgImg = document.getElementById('furnicoBgImg');
+  const furnicoHotspotsLayer = document.getElementById('furnicoHotspotsLayer');
+  const sceneThumbBtns = document.querySelectorAll('.scene-thumb-btn');
+  const scenePrevBtn = document.getElementById('scenePrevBtn');
+  const sceneNextBtn = document.getElementById('sceneNextBtn');
+  const sceneKeys = Object.keys(FURNICO_SCENES);
+  let currentSceneIndex = 0;
+
+  const renderHotspots = (sceneKey) => {
+    if (!furnicoHotspotsLayer || !FURNICO_SCENES[sceneKey]) return;
+    const scene = FURNICO_SCENES[sceneKey];
+    
+    furnicoHotspotsLayer.innerHTML = scene.hotspots.map(spot => `
+      <div class="furnico-hotspot" style="top: ${spot.top}; left: ${spot.left};" data-product="${spot.title}" data-price="${spot.price}">
+        <button type="button" class="hotspot-pin-btn" aria-label="View ${spot.title}" aria-expanded="false">
+          <span class="pulse-ring"></span>
+          <span class="pulse-core">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </span>
+        </button>
+        <div class="hotspot-popover-card">
+          <div class="popover-media">
+            <img src="${spot.img}" alt="${spot.title} thumbnail" loading="lazy">
+          </div>
+          <div class="popover-details">
+            <span class="popover-title">${spot.title}</span>
+            <span class="popover-price">${spot.price}</span>
+          </div>
+          <a href="https://wa.me/918128232032?text=${encodeURIComponent(spot.waText)}" target="_blank" rel="noopener" class="popover-arrow-btn" aria-label="Inquire about ${spot.title} on WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    `).join('');
+  };
+
+  const switchScene = (sceneKey) => {
+    const scene = FURNICO_SCENES[sceneKey];
+    if (!scene || !furnicoStage || !furnicoBgImg) return;
+
+    currentSceneIndex = sceneKeys.indexOf(sceneKey);
+
+    // Update thumbnail active states
+    sceneThumbBtns.forEach(btn => {
+      const isActive = btn.dataset.scene === sceneKey;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Smooth transition
+    furnicoStage.classList.add('transitioning');
+    setTimeout(() => {
+      furnicoBgImg.src = scene.image;
+      furnicoBgImg.alt = `${scene.name} at Modern Furniture World`;
+      renderHotspots(sceneKey);
+      furnicoStage.classList.remove('transitioning');
+    }, 250);
+  };
+
+  // Thumbnail clicks
+  sceneThumbBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sceneKey = btn.dataset.scene;
+      if (sceneKey) switchScene(sceneKey);
+    });
+  });
+
+  // Prev / Next arrows
+  if (scenePrevBtn) {
+    scenePrevBtn.addEventListener('click', () => {
+      currentSceneIndex = (currentSceneIndex - 1 + sceneKeys.length) % sceneKeys.length;
+      switchScene(sceneKeys[currentSceneIndex]);
+    });
+  }
+
+  if (sceneNextBtn) {
+    sceneNextBtn.addEventListener('click', () => {
+      currentSceneIndex = (currentSceneIndex + 1) % sceneKeys.length;
+      switchScene(sceneKeys[currentSceneIndex]);
+    });
+  }
+
+  // Hotspot click / tap delegation
+  if (furnicoHotspotsLayer) {
+    furnicoHotspotsLayer.addEventListener('click', (e) => {
+      const pinBtn = e.target.closest('.hotspot-pin-btn');
+      if (pinBtn) {
+        const hotspot = pinBtn.closest('.furnico-hotspot');
+        const isActive = hotspot.classList.contains('active');
+
+        // Close other hotspots
+        document.querySelectorAll('.furnico-hotspot.active').forEach(h => {
+          if (h !== hotspot) {
+            h.classList.remove('active');
+            const btn = h.querySelector('.hotspot-pin-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle clicked hotspot
+        hotspot.classList.toggle('active', !isActive);
+        pinBtn.setAttribute('aria-expanded', (!isActive).toString());
+      }
+    });
+
+    // Close hotspots when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.furnico-hotspot')) {
+        document.querySelectorAll('.furnico-hotspot.active').forEach(h => {
+          h.classList.remove('active');
+          const btn = h.querySelector('.hotspot-pin-btn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  }
+
+  // ==========================================================================
   // 2. STICKY GLASSMORPHISM HEADER
   // ==========================================================================
   const siteHeader = document.getElementById('siteHeader');

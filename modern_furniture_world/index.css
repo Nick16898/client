@@ -454,29 +454,27 @@ textarea:focus-visible {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  padding-block: 1rem;
-  transition: all var(--duration-normal) var(--ease-spring);
-}
-
-.site-header.scrolled {
-  padding-block: 0.5rem;
+  z-index: 100;
+  padding-block: 0.55rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  margin-bottom: -90px;
 }
 
 .header-container {
   width: min(1420px, calc(100% - 64px));
   margin-inline: auto;
-  background: var(--glass-bg);
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(14, 18, 16, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-pill);
   padding: 0.65rem 1.6rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-normal) var(--ease-spring);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   flex-wrap: nowrap;
 }
 
@@ -487,9 +485,17 @@ textarea:focus-visible {
   }
 }
 
+/* Scrolled State: Compact, solid frosted luxury navigation bar */
+.site-header.scrolled {
+  padding-block: 0.35rem;
+}
+
 .site-header.scrolled .header-container {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border);
+  background: rgba(12, 16, 14, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.32);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
 }
 
 /* Brand Logo */
@@ -506,9 +512,14 @@ textarea:focus-visible {
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid rgba(197, 160, 89, 0.4);
-  box-shadow: var(--shadow-xs);
-  transition: transform var(--duration-fast) var(--ease-spring);
+  border: 1.5px solid rgba(197, 160, 89, 0.55);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.site-header.scrolled .brand-logo-img {
+  width: 38px;
+  height: 38px;
 }
 
 .brand-logo:hover .brand-logo-img {
@@ -526,16 +537,18 @@ textarea:focus-visible {
   font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  color: var(--dark);
+  color: #FFFFFF;
   line-height: 1.1;
   white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: color var(--duration-fast) ease;
 }
 
 .brand-sub {
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--green);
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
   margin-top: 2px;
   white-space: nowrap;
 }
@@ -572,12 +585,13 @@ textarea:focus-visible {
 
 .nav-link {
   font-size: clamp(0.825rem, 0.88vw, 0.925rem);
-  font-weight: 600;
-  color: var(--dark);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
   position: relative;
   padding: 0.35rem 0.15rem;
   white-space: nowrap !important;
   display: inline-block;
+  transition: color var(--duration-fast) ease;
 }
 
 .nav-link::after {
@@ -587,11 +601,17 @@ textarea:focus-visible {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--green);
+  background-color: var(--gold);
   transition: width var(--duration-fast) ease;
 }
 
-.nav-link:hover::after {
+.nav-link:hover,
+.nav-link.active {
+  color: #FFFFFF;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 
@@ -609,8 +629,21 @@ textarea:focus-visible {
 }
 
 .header-actions .btn-primary {
-  padding: 0.65rem 1.35rem;
+  padding: 0.65rem 1.45rem;
   font-size: 0.875rem;
+  background: #FFFFFF;
+  color: #111413;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.header-actions .btn-primary:hover {
+  background: var(--green);
+  color: #FFFFFF;
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 .btn-icon-call {
@@ -619,10 +652,13 @@ textarea:focus-visible {
   gap: 0.4rem;
   font-size: 0.825rem;
   font-weight: 600;
-  color: var(--dark);
-  padding: 0.5rem 0.85rem;
+  color: #FFFFFF;
+  padding: 0.5rem 0.95rem;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: all var(--duration-fast) ease;
 }
 
@@ -642,8 +678,9 @@ textarea:focus-visible {
 }
 
 .btn-icon-call:hover {
-  background: var(--white);
-  border-color: var(--dark);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.48);
+  color: #FFFFFF;
 }
 
 .mobile-toggle {
@@ -655,7 +692,10 @@ textarea:focus-visible {
   height: 38px;
   padding: 6px;
   border-radius: 50%;
-  background: rgba(29, 36, 32, 0.06);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @media (min-width: 1024px) {
@@ -667,7 +707,7 @@ textarea:focus-visible {
 .mobile-toggle .bar {
   width: 100%;
   height: 2px;
-  background-color: var(--dark);
+  background-color: #FFFFFF;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -782,14 +822,617 @@ textarea:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
-   8. Dramatic Editorial Hero Section (Point 3)
+   7b. FurniCo-Style Interactive Room Visualizer Hero (Point 1)
+   -------------------------------------------------------------------------- */
+.furnico-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121413;
+  overflow: hidden;
+  padding: 0; /* Override global section padding-block: 90px */
+}
+
+.furnico-stage {
+  position: relative;
+  width: 100%;
+  min-height: clamp(680px, 85vh, 920px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.furnico-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.furnico-stage.transitioning .furnico-bg-img {
+  opacity: 0.2;
+  transform: scale(1.03);
+}
+
+.furnico-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(90deg, rgba(14, 18, 16, 0.94) 0%, rgba(14, 18, 16, 0.78) 36%, rgba(14, 18, 16, 0.28) 65%, rgba(14, 18, 16, 0.45) 100%),
+    linear-gradient(180deg, rgba(14, 18, 16, 0.35) 0%, transparent 40%, rgba(14, 18, 16, 0.85) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.furnico-content-wrapper {
+  position: relative;
+  z-index: 10;
+  width: min(1420px, calc(100% - 64px));
+  margin-inline: auto;
+  padding-top: calc(74px + 2.5rem);
+  padding-bottom: 5rem;
+  pointer-events: none;
+}
+
+.furnico-editorial-col {
+  max-width: 580px;
+  color: #FFFFFF;
+  pointer-events: auto;
+}
+
+.furnico-kicker-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #EDE8DE;
+  margin-bottom: 1.5rem;
+}
+
+.furnico-kicker-pill .sparkle-dot {
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
+.furnico-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 5.5vw, 82px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.furnico-main-title .title-accent {
+  font-style: italic;
+  font-weight: 400;
+  color: #F8F5EE;
+}
+
+.furnico-description {
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.68;
+  color: rgba(245, 245, 245, 0.84);
+  max-width: 490px;
+  margin-bottom: 2.25rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.furnico-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.75rem;
+}
+
+.btn-furnico-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.9rem 2.1rem;
+  background: #111413;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all var(--duration-fast) var(--ease-spring);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+.btn-furnico-primary:hover {
+  background: var(--green);
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+  color: #FFFFFF;
+}
+
+.btn-furnico-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.9rem 1.85rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.btn-furnico-glass:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.48);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+.furnico-stats-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  margin-bottom: 1.25rem;
+  max-width: 520px;
+}
+
+.furnico-stats-ribbon .stat-unit {
+  display: flex;
+  flex-direction: column;
+}
+
+.furnico-stats-ribbon .stat-value {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.furnico-stats-ribbon .stat-value.star-val svg {
+  color: #F59E0B;
+}
+
+.furnico-stats-ribbon .stat-label {
+  font-size: 0.775rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.02em;
+}
+
+.furnico-stats-ribbon .stat-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.furnico-drag-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.775rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.04em;
+}
+
+.furnico-drag-hint .drag-icon {
+  display: flex;
+  align-items: center;
+  color: var(--gold-light);
+}
+
+/* Scene Accents */
+.furnico-scene-accents {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.furnico-shelf-badge {
+  position: absolute;
+  top: 20%;
+  left: 45%;
+  background: rgba(18, 22, 20, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 0.725rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.furnico-shelf-badge .shelf-badge-line {
+  display: block;
+}
+
+.furnico-handwriting {
+  position: absolute;
+  top: 22%;
+  right: 26%;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.82);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.furnico-handwriting .sparkle-icon {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Hotspot Pins & Expanding Product Popovers
+   -------------------------------------------------------------------------- */
+.furnico-hotspots-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.furnico-hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 15;
+  transition: z-index 0.2s ease;
+}
+
+.furnico-hotspot.active {
+  z-index: 25;
+}
+
+.hotspot-pin-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(18, 22, 20, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: all var(--duration-fast) var(--ease-spring);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.hotspot-pin-btn:hover,
+.furnico-hotspot.active .hotspot-pin-btn {
+  background: #FFFFFF;
+  color: var(--dark);
+  border-color: #FFFFFF;
+  transform: scale(1.12);
+}
+
+.pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  animation: hotspot-pulse 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+.pulse-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.furnico-hotspot.active .pulse-core {
+  transform: rotate(45deg);
+}
+
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+.hotspot-popover-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 8px;
+  background: rgba(16, 20, 18, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  transform: scale(0.85) translateX(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.32s var(--ease-spring);
+  white-space: nowrap;
+}
+
+.furnico-hotspot.active .hotspot-popover-card,
+.furnico-hotspot:hover .hotspot-popover-card {
+  transform: scale(1) translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popover-media img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: block;
+}
+
+.popover-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.popover-title {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.popover-price {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.popover-arrow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) ease;
+  margin-left: 2px;
+}
+
+.popover-arrow-btn:hover {
+  background: #25D366;
+  color: #FFFFFF;
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   Room Switcher Strip (Bottom Right)
+   -------------------------------------------------------------------------- */
+.furnico-room-switcher {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 18, 16, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.scene-arrow-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  border: none;
+}
+
+.scene-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.scene-thumbnails {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scene-thumb-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  border: 1.5px solid transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+}
+
+.scene-thumb-btn img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scene-thumb-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.scene-thumb-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Rules for FurniCo Hero
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .furnico-room-switcher {
+    right: 28px;
+    bottom: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .furnico-scene-accents {
+    display: none;
+  }
+  .furnico-content-wrapper {
+    padding-top: calc(74px + 2rem);
+    padding-bottom: 5.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .furnico-stage {
+    min-height: 720px;
+  }
+  
+  .furnico-vignette {
+    background: 
+      linear-gradient(180deg, rgba(14, 18, 16, 0.88) 0%, rgba(14, 18, 16, 0.55) 45%, rgba(14, 18, 16, 0.94) 100%);
+  }
+
+  .furnico-content-wrapper {
+    width: calc(100% - 36px);
+    padding-top: calc(70px + 1.5rem);
+    padding-bottom: 6.5rem;
+  }
+
+  .furnico-editorial-col {
+    max-width: 100%;
+  }
+
+  .furnico-main-title {
+    font-size: clamp(38px, 9vw, 54px);
+    margin-bottom: 1.15rem;
+  }
+
+  .furnico-description {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
+  }
+
+  .furnico-btn-group {
+    gap: 0.75rem;
+    margin-bottom: 1.85rem;
+  }
+
+  .btn-furnico-primary,
+  .btn-furnico-glass {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.875rem;
+  }
+
+  .furnico-stats-ribbon {
+    gap: 1.15rem;
+    padding-top: 1.25rem;
+  }
+
+  .furnico-stats-ribbon .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .furnico-room-switcher {
+    bottom: 18px;
+    right: 18px;
+    padding: 4px 8px;
+    transform: scale(0.94);
+    transform-origin: bottom right;
+  }
+
+  /* Keep popovers inside screen edges on mobile */
+  .furnico-hotspot[style*="left: 8"] .hotspot-popover-card,
+  .furnico-hotspot[style*="left: 7"] .hotspot-popover-card {
+    transform: scale(0.85) translateX(-100%);
+    margin-left: -52px;
+  }
+
+  .furnico-hotspot[style*="left: 8"].active .hotspot-popover-card,
+  .furnico-hotspot[style*="left: 8"]:hover .hotspot-popover-card,
+  .furnico-hotspot[style*="left: 7"].active .hotspot-popover-card,
+  .furnico-hotspot[style*="left: 7"]:hover .hotspot-popover-card {
+    transform: scale(1) translateX(-100%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Dramatic Editorial Legacy Showcase Section (Now Section 2)
    -------------------------------------------------------------------------- */
 .hero-section {
-  padding-top: 48px;
+  padding-top: 72px;
   padding-bottom: 90px;
   background-color: var(--cream);
   position: relative;
   overflow: hidden;
+  border-top: 1px solid var(--border-light);
+}
+
+.legacy-hero-section {
+  background-color: var(--cream);
 }
 
 .hero-container {

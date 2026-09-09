@@ -118,6 +118,7 @@
 
       <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
         <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
           <li><a href="#floors" class="nav-link">7 Floors</a></li>
           <li><a href="#rooms" class="nav-link">Rooms</a></li>
           <li><a href="#spotlight" class="nav-link">Recliners</a></li>
@@ -165,6 +166,7 @@
         <button type="button" class="drawer-close" id="closeDrawer" aria-label="Close menu">✕</button>
       </div>
       <ul class="drawer-links">
+        <li><a href="#hero" class="drawer-link">Home (Visualizer)</a></li>
         <li><a href="#floors" class="drawer-link">The 7 Floors Directory</a></li>
         <li><a href="#rooms" class="drawer-link">Shop By Room</a></li>
         <li><a href="#spotlight" class="drawer-link">Smart Recliners & Sofas</a></li>
@@ -185,8 +187,217 @@
   </div>
 
   <main>
-    <!-- 3. Livora-Style Editorial Hero Section -->
-    <section class="hero-section" id="hero">
+    <!-- 1. FurniCo-Style Interactive Room Visualizer Hero -->
+    <section class="furnico-hero" id="hero" aria-label="Modern Living Visualizer Hero">
+      <!-- Background Scene Layer with Responsive Image & Vignette -->
+      <div class="furnico-stage" id="furnicoStage">
+        <img 
+          src="../assets/modern_furniture_world/furnico_hero_living.jpg" 
+          alt="Modern luxury living room at Modern Furniture World Junagadh" 
+          class="furnico-bg-img" 
+          id="furnicoBgImg"
+          fetchpriority="high"
+        >
+        <!-- Dynamic Vignette Overlay for Text Readability -->
+        <div class="furnico-vignette"></div>
+
+        <!-- Floating Decorative Script & Badges in Scene -->
+        <div class="furnico-scene-accents" aria-hidden="true">
+          <div class="furnico-shelf-badge" style="top: 24%; left: 78%;">
+            <span class="shelf-badge-line">Good</span>
+            <span class="shelf-badge-line">Design</span>
+            <span class="shelf-badge-line">Brighter</span>
+            <span class="shelf-badge-line">Days</span>
+          </div>
+          <div class="furnico-handwriting" style="top: 30%; left: 45%;">
+            <span>A Better Everyday</span>
+            <span class="sparkle-icon">✦</span>
+          </div>
+        </div>
+
+        <!-- Interactive Pulsing Hotspot Pins Layer -->
+        <div class="furnico-hotspots-layer" id="furnicoHotspotsLayer" role="region" aria-label="Interactive Product Hotspots">
+          <!-- Pin 1: Lounge Chair -->
+          <div class="furnico-hotspot" style="top: 68%; left: 52%;" data-product="Modern Bouclé Lounge Chair" data-price="₹24,990" data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=240&q=80">
+            <button type="button" class="hotspot-pin-btn" aria-label="View Modern Bouclé Lounge Chair" aria-expanded="false">
+              <span class="pulse-ring"></span>
+              <span class="pulse-core">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </span>
+            </button>
+            <div class="hotspot-popover-card">
+              <div class="popover-media">
+                <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=240&q=80" alt="Modern Bouclé Lounge Chair thumbnail">
+              </div>
+              <div class="popover-details">
+                <span class="popover-title">Modern Bouclé Chair</span>
+                <span class="popover-price">₹24,990</span>
+              </div>
+              <a href="https://wa.me/918128232032?text=Hello%20Modern%20Furniture%20World%2C%20I%20am%20interested%20in%20the%20Modern%20Boucl%C3%A9%20Chair%20(₹24,990)%20featured%20in%20your%20interactive%20room." target="_blank" rel="noopener" class="popover-arrow-btn" aria-label="Inquire about Modern Bouclé Chair on WhatsApp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Pin 2: Coffee Table -->
+          <div class="furnico-hotspot" style="top: 86%; left: 68%;" data-product="Handcrafted Teak Coffee Table" data-price="₹12,490" data-img="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=240&q=80">
+            <button type="button" class="hotspot-pin-btn" aria-label="View Handcrafted Teak Coffee Table" aria-expanded="false">
+              <span class="pulse-ring"></span>
+              <span class="pulse-core">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </span>
+            </button>
+            <div class="hotspot-popover-card">
+              <div class="popover-media">
+                <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=240&q=80" alt="Handcrafted Teak Coffee Table thumbnail">
+              </div>
+              <div class="popover-details">
+                <span class="popover-title">Teak Coffee Table</span>
+                <span class="popover-price">₹12,490</span>
+              </div>
+              <a href="https://wa.me/918128232032?text=Hello%20Modern%20Furniture%20World%2C%20I%20am%20interested%20in%20the%20Teak%20Coffee%20Table%20(₹12,490)%20featured%20in%20your%20interactive%20room." target="_blank" rel="noopener" class="popover-arrow-btn" aria-label="Inquire about Teak Coffee Table on WhatsApp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Pin 3: Bookshelf -->
+          <div class="furnico-hotspot" style="top: 48%; left: 85%;" data-product="Architectural Arched Bookcase" data-price="₹38,500" data-img="https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=240&q=80">
+            <button type="button" class="hotspot-pin-btn" aria-label="View Architectural Arched Bookcase" aria-expanded="false">
+              <span class="pulse-ring"></span>
+              <span class="pulse-core">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </span>
+            </button>
+            <div class="hotspot-popover-card">
+              <div class="popover-media">
+                <img src="https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=240&q=80" alt="Architectural Arched Bookcase thumbnail">
+              </div>
+              <div class="popover-details">
+                <span class="popover-title">Arched Bookcase</span>
+                <span class="popover-price">₹38,500</span>
+              </div>
+              <a href="https://wa.me/918128232032?text=Hello%20Modern%20Furniture%20World%2C%20I%20am%20interested%20in%20the%20Arched%20Bookcase%20(₹38,500)%20featured%20in%20your%20interactive%20room." target="_blank" rel="noopener" class="popover-arrow-btn" aria-label="Inquire about Arched Bookcase on WhatsApp">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foreground Editorial Content Container -->
+        <div class="furnico-content-wrapper">
+          <div class="furnico-editorial-col">
+            <div class="furnico-kicker-pill" data-reveal>
+              <span class="sparkle-dot">✦</span>
+              <span>MODERN LIVING, BETTER SPACES</span>
+            </div>
+
+            <h1 class="furnico-main-title" data-reveal="delay-1">
+              Furniture<br>
+              <span class="title-accent">that feels</span><br>
+              like home.
+            </h1>
+
+            <p class="furnico-description" data-reveal="delay-2">
+              Discover modern, comfortable and timeless furniture for every space in your life. Experience Saurashtra's premier collection curated across 7 iconic floors in Junagadh.
+            </p>
+
+            <div class="furnico-btn-group" data-reveal="delay-3">
+              <a href="#floors" class="btn-furnico-primary">
+                <span>Shop Now</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+
+              <a href="#rooms" class="btn-furnico-glass" id="explore3dBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span>Explore in 3D</span>
+              </a>
+            </div>
+
+            <!-- Stats Ribbon -->
+            <div class="furnico-stats-ribbon" data-reveal="delay-4">
+              <div class="stat-unit">
+                <span class="stat-value">10K+</span>
+                <span class="stat-label">Happy Customers</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-unit">
+                <span class="stat-value">500+</span>
+                <span class="stat-label">Premium Designs</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-unit">
+                <span class="stat-value star-val">
+                  4.3<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </span>
+                <span class="stat-label">Average Rating</span>
+              </div>
+            </div>
+
+            <!-- Interactive 360 Drag Hint -->
+            <div class="furnico-drag-hint" data-reveal="delay-5">
+              <span class="drag-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 8l-4 4 4 4"></path>
+                  <path d="M16 12H8"></path>
+                </svg>
+              </span>
+              <span>Tap pins to inspect pieces</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom-Right Multi-Room Switcher Strip -->
+        <div class="furnico-room-switcher" aria-label="Showroom Scenes">
+          <button type="button" class="scene-arrow-btn scene-prev" id="scenePrevBtn" aria-label="Previous Room Scene">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="scene-thumbnails" role="tablist">
+            <button type="button" class="scene-thumb-btn active" role="tab" aria-selected="true" data-scene="living" title="Living Room">
+              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=120&q=80" alt="Living Room preview">
+              <span class="thumb-name">Living</span>
+            </button>
+            <button type="button" class="scene-thumb-btn" role="tab" aria-selected="false" data-scene="bedroom" title="Master Bedroom">
+              <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=120&q=80" alt="Bedroom preview">
+              <span class="thumb-name">Bedroom</span>
+            </button>
+            <button type="button" class="scene-thumb-btn" role="tab" aria-selected="false" data-scene="dining" title="Royal Dining">
+              <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=120&q=80" alt="Dining preview">
+              <span class="thumb-name">Dining</span>
+            </button>
+          </div>
+          <button type="button" class="scene-arrow-btn scene-next" id="sceneNextBtn" aria-label="Next Room Scene">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Curated 7-Floor Legacy Showcase -->
+    <section class="hero-section legacy-hero-section" id="showroom-intro">
       <div class="hero-container">
         <!-- Left Content -->
         <div class="hero-text-col">
