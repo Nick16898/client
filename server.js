@@ -34,14 +34,24 @@ const PORTAL_PASSWORD = process.env.PORTAL_PASSWORD || '2026';
 
 const PROJECTS_DATA = [
   {
-    id: 'kanaiya-footwear',
-    title: 'Kanaiya Footwear',
+    id: 'kanaiya-footwear-letest',
+    title: 'Kanaiya Footwear (Latest Edition)',
     icon: '👟',
     badgeClass: 'kanaiya-badge',
     btnClass: 'btn-kanaiya',
-    desc: 'Premium footwear showroom in Manavadar, Gujarat. Features sports sneakers, handcrafted leather sandals, ortho relief footwear, and interactive Instagram reels.',
-    tags: ['E-Commerce', 'Product Showcase', 'Instagram Reels', 'Order Dispatch'],
-    url: '/kanaiya-footwear/'
+    desc: 'Hyper-modern sneaker showcase with 3D product view, interactive colorway selector, exploded sole anatomy, and Instagram reels.',
+    tags: ['Sneakers & Sports', '3D Interactive View', 'Instagram Reels', 'Latest Edition'],
+    url: '/kanaiya-footwear-letest/'
+  },
+  {
+    id: 'kanaiya-website',
+    title: 'Kanaiya Footwear (Classic Theme)',
+    icon: '👞',
+    badgeClass: 'kanaiya-badge',
+    btnClass: 'btn-kanaiya',
+    desc: 'Traditional boutique footwear catalog featuring handcrafted leather sandals, formal wear, ortho slippers, and reel showcase.',
+    tags: ['Traditional & Formal', 'Handcrafted Sandals', 'Instagram Reels', 'Classic Theme'],
+    url: '/kanaiya-website/'
   },
   {
     id: 'krishiv-hospital',
@@ -114,13 +124,22 @@ const server = http.createServer((req, res) => {
     normalizedPath = '/index.html';
   }
 
-  // 3. Redirect folder shortcuts without trailing slash (e.g. /kanaiya-footwear -> /kanaiya-footwear/)
-  if (normalizedPath === '/kanaiya-footwear') {
-    res.writeHead(301, { Location: '/kanaiya-footwear/' });
+  // 3. Redirect folder shortcuts without trailing slash
+  if (normalizedPath === '/kanaiya-footwear-letest') {
+    res.writeHead(301, { Location: '/kanaiya-footwear-letest/' });
+    return res.end();
+  }
+  if (normalizedPath === '/kanaiya-website') {
+    res.writeHead(301, { Location: '/kanaiya-website/' });
     return res.end();
   }
   if (normalizedPath === '/krishiv-hospital') {
     res.writeHead(301, { Location: '/krishiv-hospital/' });
+    return res.end();
+  }
+  // Legacy aliases for /kanaiya-footwear
+  if (normalizedPath === '/kanaiya-footwear' || normalizedPath === '/kanaiya-footwear/') {
+    res.writeHead(301, { Location: '/kanaiya-footwear-letest/' });
     return res.end();
   }
 
@@ -136,16 +155,18 @@ const server = http.createServer((req, res) => {
   // Fallback: If asset requested directly from /assets/ without project prefix
   if (!fs.existsSync(filePath) && normalizedPath.startsWith('/assets/')) {
     const filename = path.basename(normalizedPath);
-    const candidate1 = path.join(__dirname, 'assets', 'kanaiya-footwear', filename);
-    const candidate2 = path.join(__dirname, 'assets', 'krishiv-hospital', filename);
+    const candidate1 = path.join(__dirname, 'assets', 'kanaiya-footwear-letest', filename);
+    const candidate2 = path.join(__dirname, 'assets', 'kanaiya-website', filename);
+    const candidate3 = path.join(__dirname, 'assets', 'krishiv-hospital', filename);
     if (fs.existsSync(candidate1)) filePath = candidate1;
     else if (fs.existsSync(candidate2)) filePath = candidate2;
+    else if (fs.existsSync(candidate3)) filePath = candidate3;
   }
 
   // Fallback for legacy /photos/... requests
   if (!fs.existsSync(filePath) && normalizedPath.startsWith('/photos/')) {
     const filename = normalizedPath.replace('/photos/', '');
-    const candidate = path.join(__dirname, 'assets', 'kanaiya-footwear', filename);
+    const candidate = path.join(__dirname, 'assets', 'kanaiya-footwear-letest', filename);
     if (fs.existsSync(candidate)) filePath = candidate;
   }
 
@@ -183,7 +204,8 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
   console.log(`- Protected Hub (/): http://localhost:${PORT}/`);
-  console.log(`- Kanaiya Footwear: http://localhost:${PORT}/kanaiya-footwear/`);
+  console.log(`- Kanaiya Footwear (Latest): http://localhost:${PORT}/kanaiya-footwear-letest/`);
+  console.log(`- Kanaiya Footwear (Classic): http://localhost:${PORT}/kanaiya-website/`);
   console.log(`- Krishiv Hospital: http://localhost:${PORT}/krishiv-hospital/`);
   console.log(`- Assets: http://localhost:${PORT}/assets/`);
 });
