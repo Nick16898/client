@@ -2,7 +2,58 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+// 1. Automatically load .env file if present
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  try {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    envContent.split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#')) {
+        const eqIdx = trimmed.indexOf('=');
+        if (eqIdx !== -1) {
+          const key = trimmed.slice(0, eqIdx).trim();
+          let val = trimmed.slice(eqIdx + 1).trim();
+          if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+            val = val.slice(1, -1);
+          }
+          if (!process.env[key]) {
+            process.env[key] = val;
+          }
+        }
+      }
+    });
+    console.log('Loaded environment variables from .env');
+  } catch (err) {
+    console.warn('Could not parse .env file:', err.message);
+  }
+}
+
 const PORT = process.env.PORT || 3000;
+const PORTAL_PASSWORD = process.env.PORTAL_PASSWORD || '2026';
+
+const PROJECTS_DATA = [
+  {
+    id: 'kanaiya-footwear',
+    title: 'Kanaiya Footwear',
+    icon: '👟',
+    badgeClass: 'kanaiya-badge',
+    btnClass: 'btn-kanaiya',
+    desc: 'Premium footwear showroom in Manavadar, Gujarat. Features sports sneakers, handcrafted leather sandals, ortho relief footwear, and interactive Instagram reels.',
+    tags: ['E-Commerce', 'Product Showcase', 'Instagram Reels', 'Order Dispatch'],
+    url: '/kanaiya-footwear/'
+  },
+  {
+    id: 'krishiv-hospital',
+    title: 'Krishiv Hospital & I.C.U',
+    icon: '🏥',
+    badgeClass: 'krishiv-badge',
+    btnClass: 'btn-krishiv',
+    desc: 'Super-specialty critical care & intensive care hospital in Junagadh, led by Dr. Pinank Mer (M.D. Physician). Features live ECG simulation waveform and appointment booking.',
+    tags: ['Healthcare', 'ICU Speciality', 'Live ECG Simulation', 'WhatsApp Consult'],
+    url: '/krishiv-hospital/'
+  }
+];
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -17,196 +68,6 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
-function getPortalHtml() {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects Hub | Kanaiya Footwear & Krishiv Hospital</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #090e17;
-      --card-bg: rgba(22, 31, 48, 0.7);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --primary-cyan: #06b6d4;
-      --primary-orange: #ff5e3a;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      background-image: 
-        radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(255, 94, 58, 0.12) 0%, transparent 40%);
-    }
-    .container { max-width: 1000px; width: 100%; text-align: center; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary-cyan);
-      margin-bottom: 1.5rem;
-    }
-    .badge-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-    h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      text-align: left;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 2rem;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-    .card.kanaiya { border-top: 3px solid var(--primary-orange); }
-    .card.krishiv { border-top: 3px solid var(--primary-cyan); }
-    .card-icon {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    .card h2 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #fff;
-    }
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-    .card-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-    .btn-orange {
-      background: linear-gradient(135deg, #ff5e3a, #e11d48);
-      color: #fff;
-    }
-    .btn-orange:hover {
-      opacity: 0.95;
-      box-shadow: 0 8px 20px rgba(255, 94, 58, 0.35);
-    }
-    .btn-cyan {
-      background: linear-gradient(135deg, #06b6d4, #0284c7);
-      color: #fff;
-    }
-    .btn-cyan:hover {
-      opacity: 0.95;
-      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.35);
-    }
-    footer {
-      margin-top: 3.5rem;
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      <span>Projects Hub • Live Server Ready</span>
-    </div>
-    <h1>Select a Project</h1>
-    <p class="subtitle">Both websites are served seamlessly with shared assets and Render-ready routing.</p>
-    
-    <div class="projects-grid">
-      <!-- Kanaiya Footwear -->
-      <div class="card kanaiya">
-        <div>
-          <div class="card-icon">👟</div>
-          <h2>Kanaiya Footwear</h2>
-          <p>Premium footwear showroom in Manavadar, Gujarat. Features sports sneakers, handcrafted leather sandals, ortho relief footwear, and interactive Instagram reels.</p>
-        </div>
-        <a href="/kanaiya-footwear/" class="card-btn btn-orange">
-          Launch Kanaiya Footwear &rarr;
-        </a>
-      </div>
-
-      <!-- Krishiv Hospital -->
-      <div class="card krishiv">
-        <div>
-          <div class="card-icon">🏥</div>
-          <h2>Krishiv Hospital & I.C.U</h2>
-          <p>Super-specialty critical care and intensive care hospital in Junagadh, led by Dr. Pinank Mer (M.D. Physician). Features live ECG simulation and appointment booking.</p>
-        </div>
-        <a href="/krishiv-hospital/" class="card-btn btn-cyan">
-          Launch Krishiv Hospital &rarr;
-        </a>
-      </div>
-    </div>
-
-    <footer>
-      Server running on port ${PORT} &bull; Assets routed from /assets/
-    </footer>
-  </div>
-</body>
-</html>`;
-}
-
 const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let reqPath = decodeURIComponent(parsedUrl.pathname);
@@ -214,13 +75,46 @@ const server = http.createServer((req, res) => {
   // Normalize path using POSIX forward slashes for clean matching
   let normalizedPath = reqPath.replace(/\\/g, '/');
 
-  // 1. Root route -> Landing Portal
-  if (normalizedPath === '/' || normalizedPath === '') {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    return res.end(getPortalHtml());
+  // 1. API: Passcode Verification Endpoint (reads password from .env / process.env)
+  if (normalizedPath === '/api/verify-passcode' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+      if (body.length > 1e4) req.destroy(); // Protect against oversized payloads
+    });
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body || '{}');
+        const submittedCode = (data.passcode || '').toString().trim();
+        const expectedCode = (process.env.PORTAL_PASSWORD || PORTAL_PASSWORD).toString().trim();
+
+        if (submittedCode && submittedCode === expectedCode) {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({
+            success: true,
+            projects: PROJECTS_DATA
+          }));
+        } else {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({
+            success: false,
+            error: 'Invalid passcode'
+          }));
+        }
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ success: false, error: 'Malformed JSON' }));
+      }
+    });
+    return;
   }
 
-  // 2. Redirect folder shortcuts without trailing slash (e.g. /kanaiya-footwear -> /kanaiya-footwear/)
+  // 2. Root route -> Serve protected index.html
+  if (normalizedPath === '/' || normalizedPath === '') {
+    normalizedPath = '/index.html';
+  }
+
+  // 3. Redirect folder shortcuts without trailing slash (e.g. /kanaiya-footwear -> /kanaiya-footwear/)
   if (normalizedPath === '/kanaiya-footwear') {
     res.writeHead(301, { Location: '/kanaiya-footwear/' });
     return res.end();
@@ -230,7 +124,7 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
-  // 3. Resolve target file on disk
+  // 4. Resolve target file on disk
   const relativeFilePath = normalizedPath.replace(/^\/+/, '');
   let filePath = path.join(__dirname, relativeFilePath);
 
@@ -268,10 +162,10 @@ const server = http.createServer((req, res) => {
       return res.end(`<!DOCTYPE html>
 <html>
 <head><title>404 Not Found</title></head>
-<body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0b1120; color: #f8fafc;">
+<body style="font-family: sans-serif; text-align: center; padding: 50px; background: #070b14; color: #f8fafc;">
   <h1>404 - Page or Asset Not Found</h1>
   <p style="color: #94a3b8;">The requested path <code>${normalizedPath}</code> was not found on this server.</p>
-  <p><a href="/" style="color: #06b6d4;">&larr; Back to Projects Hub</a></p>
+  <p><a href="/" style="color: #38bdf8; text-decoration: none;">&larr; Back to Protected Portal</a></p>
 </body>
 </html>`);
     }
@@ -288,6 +182,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`- Protected Hub (/): http://localhost:${PORT}/`);
   console.log(`- Kanaiya Footwear: http://localhost:${PORT}/kanaiya-footwear/`);
   console.log(`- Krishiv Hospital: http://localhost:${PORT}/krishiv-hospital/`);
   console.log(`- Assets: http://localhost:${PORT}/assets/`);
